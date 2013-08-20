@@ -1,0 +1,9 @@
+name: codegen
+version: 0.0.1
+author: Sean Eagan <seaneagan1@gmail.com>
+description: Generate dart code with dart.
+homepage: http://github.com/seaneagan/codegen
+dependencies:
+  path: any
+dev_dependencies:
+  unittest: any
