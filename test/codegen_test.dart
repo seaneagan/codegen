@@ -2,7 +2,7 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-library intl.test.codegen_test;
+library codegen.test.codegen_test;
 
 import 'dart:io';
 import 'package:unittest/unittest.dart';
@@ -78,6 +78,22 @@ class B {}
 ''');
       });
 
+      test("no comment", () {
+
+        library.addPart(
+            partFromEntryPoint,
+            'class B {}');
+        library.generate();
+
+        var part = new File(join(dirname(entryPointPath), partFromEntryPoint));
+        var contents = part.readAsStringSync();
+        expect(contents, '''
+
+part of foo.foo;
+
+class B {}
+''');
+      });
     });
 
     group('name from path', () {

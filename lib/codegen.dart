@@ -3,8 +3,7 @@
 // BSD-style license that can be found in the LICENSE file.
 
 /// Utilities for generating dart code.
-// TODO: Move this to its own "codegen" package.
-library intl.codegen;
+library codegen;
 
 import 'dart:io';
 import 'package:path/path.dart';
@@ -134,8 +133,6 @@ class Import {
 // TODO: Add mechanism to create/edit pubspecs.
 class PubPackage {
 
-  static final _importBuilder = new Builder(style: Style.posix);
-
   String _path;
 
   /// The path to this package on the file system.
@@ -161,10 +158,12 @@ class PubPackage {
   /// Gets the "package:" uri relative to the package root.
   ///
   /// For example, if [name == "foo"], then:
-  /// [getPackageUri(['foo.dart']) == 'package:foo/foo.dart'].
-  // TODO: Use Uri constructor instead?
+  ///     getPackageUri('foo.dart') == 'package:foo/foo.dart'
   String getPackageUri(String path) =>
-      _importBuilder.joinAll(["package:$name"]..addAll(split(path)));
+      new Uri(
+          scheme: 'package',
+          pathSegments: [name]..addAll(split(path)))
+      .toString();
 
   /// The path to the public source code of this package.
   String get lib => join(path, LIB);
@@ -285,7 +284,7 @@ $code
 
   /// The complete text of the file.
   String get contents => '''
-$comment
+${comment == null ? '' : comment}
 $_headKeyWord $libraryName;
 
 $body''';
