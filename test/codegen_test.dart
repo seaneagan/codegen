@@ -171,7 +171,7 @@ import 'package:foo/foo.dart' as foo show a, b;'''));
 }
 
 // Creates a basic temp directory.
-Directory _createtempDir() => new Directory("").createTempSync();
+Directory _createtempDir() => Directory.systemTemp.createTempSync();
 
 // Creates a package root and a dummy pubspec within.
 Directory _createPackage(String packageRoot) {

@@ -292,7 +292,7 @@ $body''';
   /// Writes the file to [path].
   void generate() {
     var file = new File(path);
-    file.directory.createSync(recursive: true);
+    file.parent.createSync(recursive: true);
     file.writeAsStringSync(contents);
   }
 }
